@@ -448,6 +448,7 @@
         let isPlaying = false;
         
         let zoneGroupPos = 30;
+        let lastSide = 'right'; // 기록용 ('right'로 두어 첫 시작이 왼쪽에서 출발해 오른쪽으로 가도록 유도)
 
         let lockTimer = null;
         let currentSuccessCount = 0;
@@ -536,26 +537,18 @@
             zoneGroup.style.left = zoneGroupPos + '%';
         }
 
-        function resetPointerAndDirection() {
-            if (zoneGroupPos > 30) {
+        function applyAlternateStart() {
+            // 직전 출발지와 반대 방향으로 흰색 바와 방향을 교대로 설정
+            if (lastSide === 'right') {
+                // 이번엔 왼쪽에서 출발 -> 오른쪽으로 이동 (direction = 1)
                 position = 0;
                 direction = 1;
+                lastSide = 'left';
             } else {
+                // 이번엔 오른쪽에서 출발 -> 왼쪽으로 이동 (direction = -1)
                 position = 100;
                 direction = -1;
-            }
-            pointer.style.left = position + '%';
-        }
-
-        function shiftGreenZoneOnSuccess() {
-            randomizeGreenZone();
-
-            if (zoneGroupPos > 30) {
-                position = 0;
-                direction = 1;
-            } else {
-                position = 100;
-                direction = -1;
+                lastSide = 'right';
             }
             pointer.style.left = position + '%';
         }
@@ -566,7 +559,7 @@
             currentSuccessCount = 0;
 
             gameTitle.textContent = `stage ${stage}`;
-            gameDesc.innerHTML = `Hit the green zone <b>${targetSuccessCount} time(s)</b> consecutively before time runs out!`;
+            gameDesc.innerHTML = `Hit the green zone <b>${targetSuccessCount} time(s)</b> consecutively before it passes!`;
 
             speed = (0.35 + (stage - 1) * 0.015) * 1.15;
 
@@ -582,7 +575,8 @@
             startBtn.style.display = 'inline-block';
             nextBtn.style.display = 'none';
 
-            resetPointerAndDirection();
+            lastSide = 'right'; // 스테이지 처음 시작 시 항상 왼쪽에서 시작하도록 초기화
+            applyAlternateStart();
         }
 
         function isPointerInGreen() {
@@ -635,7 +629,8 @@
             isPlaying = true;
             currentSuccessCount = 0;
             
-            resetPointerAndDirection();
+            lastSide = 'right';
+            applyAlternateStart();
 
             resultDisplay.textContent = `Progress: 0 / ${targetSuccessCount}`;
             resultDisplay.style.color = "#ffffff";
@@ -693,7 +688,8 @@
                     resultDisplay.textContent = `👍 Success! (${currentSuccessCount} / ${targetSuccessCount})`;
                     resultDisplay.style.color = "#2ecc71";
                     
-                    shiftGreenZoneOnSuccess();
+                    randomizeGreenZone();
+                    applyAlternateStart(); // 성공할 때마다 흰색 바의 출발 위치가 왼쪽/오른쪽 번갈아가며 바뀜
                 }
             } else {
                 triggerFail();
