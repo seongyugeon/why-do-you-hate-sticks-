@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -363,7 +363,7 @@
 </head>
 <body>
 
-    <!-- 1. 메인 메뉴 화면 -->
+    <!-- 1. Main Menu Screen -->
     <div class="screen active" id="menuScreen">
         <h1 class="main-title green-3d-text">why do you hate sticks?</h1>
         <div class="menu-buttons">
@@ -373,23 +373,23 @@
         </div>
     </div>
 
-    <!-- 2. 스테이지 선택 화면 -->
+    <!-- 2. Stage Select Screen -->
     <div class="screen" id="stageSelectScreen">
         <div class="stage-select-header">
             <button class="back-btn" onclick="showScreen('menuScreen')">← back</button>
             <h1 class="stages-title green-3d-text">stages</h1>
         </div>
         <div class="stage-grid" id="stageGrid"></div>
-        <div class="lock-msg" id="lockMsg">잠김!</div>
+        <div class="lock-msg" id="lockMsg">Locked!</div>
     </div>
 
-    <!-- 3. 인게임 화면 -->
+    <!-- 3. In-Game Screen -->
     <div class="screen" id="gameScreen">
         <div class="stage-select-header" style="justify-content: flex-start;">
             <button class="back-btn" onclick="showStages()">← back</button>
         </div>
         <h1 class="game-title green-3d-text" id="gameTitle">stage 1</h1>
-        <p class="game-desc" id="gameDesc">바가 <b>초록색 영역</b>을 지나치기 전에 [스페이스바] 또는 [클릭]하세요!</p>
+        <p class="game-desc" id="gameDesc">Press [Space] or [Click] before the bar passes the <b>green area</b>!</p>
 
         <div class="gauge-container" id="gauge">
             <div class="zone-group" id="zoneGroup">
@@ -400,8 +400,8 @@
             <div class="pointer" id="pointer"></div>
         </div>
 
-        <div class="status-info" id="statusInfo">속도: 1.0x</div>
-        <div class="result" id="result">게임 준비</div>
+        <div class="status-info" id="statusInfo">Speed: 1.0x</div>
+        <div class="result" id="result">Ready</div>
         
         <div class="game-btn-group">
             <button class="btn-green-border game-start-btn" id="startBtn" onclick="startGame()">START</button>
@@ -409,7 +409,7 @@
         </div>
     </div>
 
-    <!-- 모달 -->
+    <!-- Modal -->
     <div class="modal" id="infoModal">
         <div class="modal-content">
             <h2 class="green-3d-text" id="modalTitle">TITLE</h2>
@@ -438,11 +438,11 @@
         const gameDesc = document.getElementById('gameDesc');
 
         let currentStage = 1;
-        let unlockedStage = parseInt(localStorage.getItem('react_green_unlocked') || '1');
+        let unlockedStage = parseInt(localStorage.getItem('why_hate_sticks_unlocked') || '1');
         
         let position = 0;
         let direction = 1;
-        let speed = 0.4025; // 15% 증가된 속도 유지
+        let speed = 0.4025;
         
         let animationFrameId = null;
         let isPlaying = false;
@@ -454,7 +454,7 @@
         let targetSuccessCount = 1;
 
         function initStageGrid() {
-            unlockedStage = parseInt(localStorage.getItem('react_green_unlocked') || '1');
+            unlockedStage = parseInt(localStorage.getItem('why_hate_sticks_unlocked') || '1');
             stageGrid.innerHTML = '';
             for (let i = 1; i <= 50; i++) {
                 const box = document.createElement('div');
@@ -519,10 +519,10 @@
         function openModal(type) {
             if (type === 'howToPlay') {
                 modalTitle.textContent = "how to play";
-                modalBody.innerHTML = "움직이는 흰색 바가 <b>초록색 구간</b>을 지나가기 전에 누르세요!<br><br>놓치면 <b>실패</b>합니다!";
+                modalBody.innerHTML = "Click or press Space when the moving white bar passes through the <b>green zone</b>!<br><br>Missing it results in <b>failure</b>!";
             } else if (type === 'donate') {
                 modalTitle.textContent = "donate";
-                modalBody.innerHTML = "why do you hate sticks?를 플레이해주셔서 감사합니다! ❤️<br><br>후원 기능은 준비 중입니다.";
+                modalBody.innerHTML = "Thank you for playing why do you hate sticks? ❤️<br><br>Donation feature is coming soon.";
             }
             infoModal.style.display = 'flex';
         }
@@ -566,7 +566,7 @@
             currentSuccessCount = 0;
 
             gameTitle.textContent = `stage ${stage}`;
-            gameDesc.innerHTML = `초록색 영역을 지나치기 전에 연속 <b>${targetSuccessCount}번</b> 맞춰야 합니다!`;
+            gameDesc.innerHTML = `Hit the green zone <b>${targetSuccessCount} time(s)</b> consecutively before time runs out!`;
 
             speed = (0.35 + (stage - 1) * 0.015) * 1.15;
 
@@ -575,8 +575,8 @@
             void zoneGroup.offsetHeight;
             zoneGroup.style.transition = 'left 0.29s cubic-bezier(0.25, 1, 0.5, 1)';
 
-            statusInfo.textContent = `속도: ${(speed * 10).toFixed(1)}x`;
-            resultDisplay.textContent = `진행: 0 / ${targetSuccessCount}`;
+            statusInfo.textContent = `Speed: ${(speed * 10).toFixed(1)}x`;
+            resultDisplay.textContent = `Progress: 0 / ${targetSuccessCount}`;
             resultDisplay.style.color = "#ffffff";
 
             startBtn.style.display = 'inline-block';
@@ -622,7 +622,7 @@
             pointer.style.left = position + '%';
 
             if (isPointerPassed()) {
-                triggerFail("지나침!");
+                triggerFail("Passed!");
                 return;
             }
             
@@ -637,7 +637,7 @@
             
             resetPointerAndDirection();
 
-            resultDisplay.textContent = `진행: 0 / ${targetSuccessCount}`;
+            resultDisplay.textContent = `Progress: 0 / ${targetSuccessCount}`;
             resultDisplay.style.color = "#ffffff";
             startBtn.blur();
 
@@ -679,7 +679,7 @@
 
                     if (currentStage + 1 > unlockedStage && currentStage < 50) {
                         unlockedStage = currentStage + 1;
-                        localStorage.setItem('react_green_unlocked', unlockedStage.toString());
+                        localStorage.setItem('why_hate_sticks_unlocked', unlockedStage.toString());
                     }
 
                     if (currentStage < 50) {
@@ -690,7 +690,7 @@
                     nextBtn.style.display = 'inline-block';
                     startBtn.style.display = 'none';
                 } else {
-                    resultDisplay.textContent = `👍 성공! (${currentSuccessCount} / ${targetSuccessCount})`;
+                    resultDisplay.textContent = `👍 Success! (${currentSuccessCount} / ${targetSuccessCount})`;
                     resultDisplay.style.color = "#2ecc71";
                     
                     shiftGreenZoneOnSuccess();
