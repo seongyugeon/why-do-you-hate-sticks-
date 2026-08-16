@@ -16,6 +16,8 @@
             background-color: #121212;
             color: #ffffff;
             user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
         }
 
         .green-3d-text {
@@ -62,8 +64,8 @@
         }
 
         .main-title {
-            font-size: 42px;
-            margin: 0 0 40px 0;
+            font-size: 36px;
+            margin: 0 0 30px 0;
             text-align: center;
             padding: 0 20px;
         }
@@ -91,11 +93,10 @@
             text-align: center;
         }
 
-        .btn-green-border:hover {
+        .btn-green-border:active {
             background-color: #2ecc71;
             color: #121212;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4);
+            transform: scale(0.96);
         }
 
         .stage-select-header {
@@ -105,7 +106,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .back-btn {
@@ -119,60 +120,44 @@
             padding: 8px 18px;
             border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .back-btn:hover {
-            background-color: #2ecc71;
-            color: #121212;
-            transform: translateX(-3px);
         }
 
         .stages-title {
-            font-size: 52px;
+            font-size: 42px;
             margin: 0;
         }
 
         .stage-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 15px;
-            max-width: 550px;
-            max-height: 55vh;
+            gap: 12px;
+            max-width: 360px;
+            max-height: 50vh;
             overflow-y: auto;
             padding: 10px;
         }
 
         .stage-box {
             position: relative;
-            width: 75px;
-            height: 75px;
+            width: 60px;
+            height: 60px;
             background-color: #1a1a1a;
             border: 2px solid #2ecc71;
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            font-size: 22px;
         }
 
-        .stage-box.unlocked:hover {
+        .stage-box.unlocked:active {
             background-color: #2ecc71;
-            transform: scale(1.08);
-            box-shadow: 0 0 15px rgba(46, 204, 113, 0.6);
-        }
-
-        .stage-box.unlocked:hover .green-3d-text-slim {
-            color: #121212;
-            text-shadow: 0 1px 0 #000000;
+            transform: scale(0.95);
         }
 
         .stage-box.locked {
             border-color: #444;
             background-color: #141414;
-            cursor: pointer;
         }
 
         .stage-box.locked .green-3d-text-slim {
@@ -183,9 +168,8 @@
 
         .lock-icon {
             position: absolute;
-            font-size: 24px;
+            font-size: 20px;
             color: #ff4d4d;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
         }
 
         .shake {
@@ -202,8 +186,8 @@
 
         .lock-msg {
             height: 25px;
-            margin-top: 15px;
-            font-size: 18px;
+            margin-top: 10px;
+            font-size: 16px;
             font-weight: bold;
             color: #ff4d4d;
             text-align: center;
@@ -215,31 +199,23 @@
             opacity: 1;
         }
 
-        .stage-grid::-webkit-scrollbar {
-            width: 8px;
-        }
-        .stage-grid::-webkit-scrollbar-thumb {
-            background: #222;
-            border: 1px solid #2ecc71;
-            border-radius: 4px;
-        }
-
         .game-title {
-            font-size: 48px;
+            font-size: 38px;
             margin: 0 0 10px 0;
         }
 
         .game-desc {
             color: #ccc;
             margin-bottom: 25px;
-            font-size: 16px;
+            font-size: 14px;
+            text-align: center;
+            padding: 0 20px;
         }
 
         .gauge-container {
             position: relative;
-            width: 70vw;
-            max-width: 900px;
-            min-width: 320px;
+            width: 85vw;
+            max-width: 600px;
             height: 55px;
             border-radius: 6px;
             overflow: hidden;
@@ -287,15 +263,16 @@
 
         .status-info {
             margin-top: 20px;
-            font-size: 18px;
+            font-size: 16px;
             color: #aaa;
         }
 
         .result {
             margin-top: 15px;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             height: 35px;
+            text-align: center;
         }
 
         .game-btn-group {
@@ -305,19 +282,14 @@
         }
 
         .game-start-btn {
-            width: 200px;
+            width: 180px;
         }
 
         .next-stage-btn {
-            width: 200px;
+            width: 180px;
             display: none;
             background-color: #2ecc71;
             color: #121212;
-        }
-
-        .next-stage-btn:hover {
-            background-color: #27ae60;
-            color: #ffffff;
         }
 
         .modal {
@@ -337,14 +309,15 @@
             background-color: #121212;
             border: 2px solid #2ecc71;
             border-radius: 8px;
-            padding: 30px;
-            width: 320px;
+            padding: 25px;
+            width: 80%;
+            max-width: 320px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
         }
 
         .modal-content h2 {
-            font-size: 32px;
+            font-size: 28px;
             margin-top: 0;
             margin-bottom: 15px;
         }
@@ -353,6 +326,7 @@
             color: #ccc;
             line-height: 1.6;
             margin-bottom: 25px;
+            font-size: 14px;
         }
 
         @keyframes fadeIn {
@@ -389,7 +363,7 @@
             <button class="back-btn" onclick="showStages()">← back</button>
         </div>
         <h1 class="game-title green-3d-text" id="gameTitle">stage 1</h1>
-        <p class="game-desc" id="gameDesc">Press [Space] or [Click] before the bar passes the <b>green area</b>!</p>
+        <p class="game-desc" id="gameDesc">Tap anywhere or press [Space] before the bar passes the <b>green area</b>!</p>
 
         <div class="gauge-container" id="gauge">
             <div class="zone-group" id="zoneGroup">
@@ -448,7 +422,7 @@
         let isPlaying = false;
         
         let zoneGroupPos = 30;
-        let lastSide = 'right'; // 기록용 ('right'로 두어 첫 시작이 왼쪽에서 출발해 오른쪽으로 가도록 유도)
+        let lastSide = 'right';
 
         let lockTimer = null;
         let currentSuccessCount = 0;
@@ -520,7 +494,7 @@
         function openModal(type) {
             if (type === 'howToPlay') {
                 modalTitle.textContent = "how to play";
-                modalBody.innerHTML = "Click or press Space when the moving white bar passes through the <b>green zone</b>!<br><br>Missing it results in <b>failure</b>!";
+                modalBody.innerHTML = "Tap anywhere or press Space when the moving white bar passes through the <b>green zone</b>!<br><br>Missing it results in <b>failure</b>!";
             } else if (type === 'donate') {
                 modalTitle.textContent = "donate";
                 modalBody.innerHTML = "Thank you for playing why do you hate sticks? ❤️<br><br>Donation feature is coming soon.";
@@ -538,14 +512,11 @@
         }
 
         function applyAlternateStart() {
-            // 직전 출발지와 반대 방향으로 흰색 바와 방향을 교대로 설정
             if (lastSide === 'right') {
-                // 이번엔 왼쪽에서 출발 -> 오른쪽으로 이동 (direction = 1)
                 position = 0;
                 direction = 1;
                 lastSide = 'left';
             } else {
-                // 이번엔 오른쪽에서 출발 -> 왼쪽으로 이동 (direction = -1)
                 position = 100;
                 direction = -1;
                 lastSide = 'right';
@@ -575,7 +546,7 @@
             startBtn.style.display = 'inline-block';
             nextBtn.style.display = 'none';
 
-            lastSide = 'right'; // 스테이지 처음 시작 시 항상 왼쪽에서 시작하도록 초기화
+            lastSide = 'right';
             applyAlternateStart();
         }
 
@@ -689,7 +660,7 @@
                     resultDisplay.style.color = "#2ecc71";
                     
                     randomizeGreenZone();
-                    applyAlternateStart(); // 성공할 때마다 흰색 바의 출발 위치가 왼쪽/오른쪽 번갈아가며 바뀜
+                    applyAlternateStart();
                 }
             } else {
                 triggerFail();
@@ -712,9 +683,11 @@
             }
         });
 
-        document.body.addEventListener('click', (e) => {
+        // 모바일 터치 및 클릭 대응
+        document.body.addEventListener('pointerdown', (e) => {
             if (document.getElementById('gameScreen').classList.contains('active')) {
                 if (e.target.tagName === 'BUTTON') return;
+                e.preventDefault();
 
                 if (isPlaying) {
                     checkHit();
